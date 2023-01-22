@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui;
+}
+#root{
+    overflow-x: hidden;
+    background: rgb(244, 244, 244);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main{
+    min-height: 83vh;
+}
+footer{
+    margin-top: auto;
+    height: 10vh;
+    background-color: #000;
+}
+.wrapper{
+    margin: 0 auto;
+    max-width: 1440px;
+}
+.link_a{
+    text-decoration: none;
+    color: inherit;
+}
+.link_a:hover{
+    color: inherit;
+}
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cordLogo{
+    margin: 0 auto;
+    display: block;
+}

@@ -19,6 +19,7 @@ class categorysController {
     async getAllCategorys(req, res, next) {
         try {
             const category =  await Categorys.findAll()
+            console.log(123)
             return res.json({category})
         } catch (e) {
             next(ApiError.badRequest(e.messge))

@@ -26,14 +26,14 @@ const Categorys = sequelize.define('categorys', {
 })
 
 
-Users.hasMany(Requests)
-Requests.belongsTo(Users)
+Users.hasMany(Requests, {as:"RequestsID"})
+// Requests.belongsTo(Users)
 
-Request.hasMany(Requests)
-Requests.belongsTo(Request)
+Request.hasMany(Requests, {as: "RequestsID"})
+// Requests.belongsTo(Request)
 
-// Request.hasOne(Categorys)
-// Categorys.belongsTo(Request)
+Categorys.hasOne(Request, {onDelete: "cascade", as: "RequestId", foreignKey:"category"})
+Request.belongsTo(Categorys, {as: "Categorys"})
 
 
 module.exports = {
