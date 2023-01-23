@@ -5,18 +5,22 @@ import { Context } from "..";
 import ControlUser from "../modules/controlUser/ControlUser";
 import ControlAdmin from "../modules/controlAdmin/ControlAdmin";
 
-const HomePage = observer(() => {
+const HomePage = observer((props) => {
     const { user } = useContext(Context)
     return (
         <main>
             {
-                user.isAuth ?
-                <>
-                    <ControlUser></ControlUser>
-                    <ControlAdmin></ControlAdmin>
-                </>
+                props.isLoaded ?
+                    <div className="spinner-border" style={{ width: "10rem", height: "10rem" }} role="status">
+                    </div>
                     :
-                    <WalcomModule></WalcomModule>
+                    user.isAuth ?
+                        <>
+                            <ControlAdmin></ControlAdmin>
+                            <ControlUser></ControlUser>
+                        </>
+                        :
+                        <WalcomModule></WalcomModule>
             }
 
         </main>

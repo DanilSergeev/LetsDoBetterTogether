@@ -23,7 +23,7 @@ class UserController {
 
 
 
-            const jwt = generateJWT({ id: user.id, email: user.email, role: user.role })
+            const jwt = generateJWT( user.id, user.email, user.role )
 
 
 
@@ -52,7 +52,7 @@ class UserController {
                 return next(ApiError.badRequest("Указан неверный пароль"))
             }
 
-            const jwt = generateJWT({ id: user.id, email: user.email, role: user.role })
+            const jwt = generateJWT( user.id, user.email, user.role )
 
 
             return res.json({ jwt })

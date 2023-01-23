@@ -8,36 +8,42 @@ import { Context } from '../..';
 import logo from "../../style/img/logo_without_wordst.png"
 
 
-const Header = observer(() => {
+const Header = observer((props) => {
     const { user } = useContext(Context)
 
     function exitUser() {
         user.setAuth(!user.isAuth)
         user.setUser({})
-        // localStorage.removeItem("token")
+        localStorage.removeItem("token")
         localStorage.removeItem("user")
     }
 
     return (
         <header>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Container>
-                    <Navbar.Brand><Link to="/" className='link_a'><img src={logo} alt="logo" style={{ maxHeight: "5vh" }} />Сделаем лучше вместе</Link></Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav style={{ marginLeft: "auto" }}>
-                            {
-                                user.isAuth ?
-                                    <Nav.Link onClick={() => exitUser()}>Выход</Nav.Link>
-                                    :
-                                    <>
-                                        <Link to="/login" className='link_a linkNav' style={{marginRight:"1.4rem"}}>Авторизация</Link>
-                                        <Link to="/register" className='link_a linkNav'>Регистрация</Link>
-                                    </>
-                            }
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
+                {
+                    props.isLoaded ?
+                        <div className="spinner-border text-light" role="status">
+                        </div>
+                        :
+                        <Container>
+                            <Navbar.Brand><Link to="/" className='link_a'><img src={logo} alt="logo" style={{ maxHeight: "5vh" }} />Сделаем лучше вместе</Link></Navbar.Brand>
+                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                            <Navbar.Collapse id="responsive-navbar-nav">
+                                <Nav style={{ marginLeft: "auto" }}>
+                                    {
+                                        user.isAuth ?
+                                            <Nav.Link onClick={() => exitUser()}>Выход</Nav.Link>
+                                            :
+                                            <>
+                                                <Link to="/login" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Авторизация</Link>
+                                                <Link to="/register" className='link_a linkNav'>Регистрация</Link>
+                                            </>
+                                    }
+                                </Nav>
+                            </Navbar.Collapse>
+                        </Container>
+                }
             </Navbar>
         </header>
     )

@@ -6,9 +6,9 @@ export const registration = async (email, password) => {
     localStorage.setItem("token", data.jwt)
     const decode = jwt_decode(data.jwt)
     const user = {
-        id: decode.id.id,
-        email: decode.id.email,
-        role: decode.id.role
+        id: decode.id,
+        email: decode.email,
+        role: decode.role
     }
     localStorage.setItem('user', JSON.stringify(user))
 
@@ -20,9 +20,9 @@ export const login = async (email, password) => {
     localStorage.setItem("token", data.jwt)
     const decode = jwt_decode(data.jwt)
     const user = {
-        id: decode.id.id,
-        email: decode.id.email,
-        role: decode.id.role
+        id: decode.id,
+        email: decode.email,
+        role: decode.role
     }
     localStorage.setItem('user', JSON.stringify(user))
 
@@ -31,12 +31,12 @@ export const login = async (email, password) => {
 
 export const chack = async () => {
     const { data } = await $authHost.get("api/user/auth")
-    localStorage.setItem('token', data.jwt)
-    const decode = jwt_decode(data.jwt)
+    localStorage.setItem('token', data.token)
+    const decode = jwt_decode(data.token)
     const user = {
-        id: decode.id.id,
-        email: decode.id.email,
-        role: decode.id.role
+        id: decode.id,
+        email: decode.email,
+        role: decode.role
     }
     localStorage.setItem('user', JSON.stringify(user))
     return decode
