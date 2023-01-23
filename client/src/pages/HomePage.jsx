@@ -1,24 +1,25 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import WalcomModule from "../modules/welcomModuleInHomePage/WalcomModule";
+import { observer } from "mobx-react"
+import { useContext } from "react";
+import { Context } from "..";
+import ControlUser from "../modules/controlUser/ControlUser";
+import ControlAdmin from "../modules/controlAdmin/ControlAdmin";
 
-
-export default function HomePage() {
+const HomePage = observer(() => {
+    const { user } = useContext(Context)
     return (
         <main>
-            <section className='wrapper center'>
-                <Card style={{ width: '38rem', marginTop: "3rem" }}>
-                    <Card.Img variant="top" src=" https://tsar-events.com/1574107940_rica-ozero-abhazija-12.jpg" />
-                    <Card.Body style={{padding:"3vh"}}>
-                        <Card.Title>Добро пожаловать</Card.Title>
-                        <Card.Text>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam ipsam beatae eligendi dolorem. Amet ut ipsum aliquam nulla.
-                        </Card.Text>
-                        <Button variant="success" style={{marginRight: "1rem"}}><Link to="/login" className='link_a'>Авторизация</Link></Button>
-                        <Button variant="success"><Link to="/login" className='link_a'>Регистрация</Link></Button>
-                    </Card.Body>
-                </Card>
-            </section>
+            {
+                user.isAuth ?
+                <>
+                    <ControlUser></ControlUser>
+                    <ControlAdmin></ControlAdmin>
+                </>
+                    :
+                    <WalcomModule></WalcomModule>
+            }
+
         </main>
     )
-}
+})
+export default HomePage

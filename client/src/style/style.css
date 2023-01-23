@@ -30,6 +30,15 @@ footer{
 .link_a:hover{
     color: inherit;
 }
+.linkNav{
+    color: #9B9D9E;
+    display: flex;
+    align-items: center;
+}
+.linkNav:hover{
+    color: #646667;
+
+}
 .center{
     display: flex;
     align-items: center;

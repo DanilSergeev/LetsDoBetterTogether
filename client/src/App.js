@@ -6,8 +6,22 @@ import HomePage from "./pages/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import { useContext, useEffect } from "react";
+import { Context } from ".";
+import { chack } from "./http/userApi";
 
 function App() {
+  const {user} = useContext(Context)
+
+  useEffect(()=>{
+    chack().then(data => {
+      console.log(data)
+      user.setAuth(true)
+      user.setUser(true)
+    })
+  },[])
+
+
   return (
     <BrowserRouter>
       <Header></Header>

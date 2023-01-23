@@ -1,10 +1,34 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from "../style/img/logo_without_wordst.png"
+import { observer } from "mobx-react"
+import { useContext, useState } from 'react';
+import { Context } from '..';
+import { registration } from '../http/userApi';
 
-export default function Register() {
+
+const Register= observer(() => {
+    const [email, setEmail] = useState(""); 
+    const [password, setPassword] = useState(""); 
+    const [rePassword, setRePassword] = useState(""); 
+    const navigate = useNavigate()
+
+    const {user} = useContext(Context)
+
+    const signIn = async () =>{
+        if(password!==rePassword){
+            return alert("Пароль не совподают")
+        }
+        const response = await registration(email, password);
+        user.setAuth(true)
+        user.setUser(response)
+        return navigate("/")
+    }
+
+
+
     return (
         <main className='center'>
             <section className='wrapper center'>
@@ -15,15 +39,15 @@ export default function Register() {
                         <Form>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label className='mt-2'>Введите E-mail</Form.Label>
-                                <Form.Control type="email" placeholder="name@example.com" />
+                                <Form.Control value={email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="name@example.com" />
                                 <Form.Label className='mt-4'>Введите пароль</Form.Label>
-                                <Form.Control type="password" placeholder="Ваш пароль" />
+                                <Form.Control value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Ваш пароль" />
                                 <Form.Label className='mt-4'>Повторите пароль</Form.Label>
-                                <Form.Control type="password" placeholder="Повторите пароль" />
+                                <Form.Control value={rePassword} onChange={(e)=>setRePassword(e.target.value)} type="password" placeholder="Повторите пароль" />
                             </Form.Group>
                         </Form>
 
-                        <Button variant="success"><Link to="/login" className='link_a'>Зарегистрироватся</Link></Button>
+                        <Button onClick={()=>signIn()} variant="success"><Link to="/login" className='link_a'>Зарегистрироватся</Link></Button>
                         <Card.Body>
                             <Link to="/login">Есть акаунт? Авторизируйтесь</Link>
                         </Card.Body>
@@ -32,4 +56,5 @@ export default function Register() {
             </section>
         </main>
     )
-}
+})
+export default Register

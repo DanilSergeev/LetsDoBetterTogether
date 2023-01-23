@@ -1,10 +1,28 @@
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../http/userApi';
 import logo from "../style/img/logo_without_wordst.png"
+import { observer } from "mobx-react"
+import { useContext } from 'react';
+import { Context } from '..';
 
-export default function Login() {
+const Login = observer(() => {
+    const [email, setEmail] = useState(""); 
+    const [password, setPassword] = useState(""); 
+    const {user} = useContext(Context)
+
+    const navigate = useNavigate()
+
+    const signUp = async () => {
+        const response = await login(email,password);
+        user.setAuth(true)
+        user.setUser(response)
+        return navigate("/")
+    }
+
     return (
         <main className='center'>
             <section className='wrapper center'>
@@ -15,13 +33,13 @@ export default function Login() {
                         <Form>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label className='mt-2'>Введите E-mail</Form.Label>
-                                <Form.Control type="email" placeholder="name@example.com" />
+                                <Form.Control value={email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="name@example.com" />
                                 <Form.Label className='mt-4'>Введите пароль</Form.Label>
-                                <Form.Control type="password" placeholder="Ваш пароль" />
+                                <Form.Control value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Ваш пароль" />
                             </Form.Group>
                         </Form>
+                        <Button onClick={()=>signUp()} variant="success">Войти</Button>
 
-                        <Button variant="success"><Link to="/login" className='link_a'>Войти</Link></Button>
                         <Card.Body>
                             <Link to="/register">Нет акаунта? Авторизируйтесь</Link>
                         </Card.Body>
@@ -30,4 +48,5 @@ export default function Login() {
             </section>
         </main>
     )
-}
+})
+export default Login
