@@ -40,9 +40,9 @@ const Register= observer(() => {
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label className='mt-2'>Введите E-mail</Form.Label>
                                 <Form.Control value={email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="name@example.com" />
-                                <Form.Label className='mt-4'>Введите пароль</Form.Label>
+                                <Form.Label className='mt-3'>Введите пароль</Form.Label>
                                 <Form.Control value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Ваш пароль" />
-                                <Form.Label className='mt-4'>Повторите пароль</Form.Label>
+                                <Form.Label className='mt-3'>Повторите пароль</Form.Label>
                                 <Form.Control value={rePassword} onChange={(e)=>setRePassword(e.target.value)} type="password" placeholder="Повторите пароль" />
                             </Form.Group>
                         </Form>

@@ -2,11 +2,12 @@ import WalcomModule from "../modules/welcomModuleInHomePage/WalcomModule";
 import { observer } from "mobx-react"
 import { useContext } from "react";
 import { Context } from "..";
-import ControlUser from "../modules/controlUser/ControlUser";
 import ControlAdmin from "../modules/controlAdmin/ControlAdmin";
+import ControlUserIndex from "../modules/controlUser/";
 
 const HomePage = observer((props) => {
     const { user } = useContext(Context)
+    const userObject = Object.assign({}, user.user)
     return (
         <main>
             {
@@ -15,10 +16,11 @@ const HomePage = observer((props) => {
                     </div>
                     :
                     user.isAuth ?
-                        <>
+                        userObject.role === "ADMIN" ?
                             <ControlAdmin></ControlAdmin>
-                            <ControlUser></ControlUser>
-                        </>
+                            :
+                            <ControlUserIndex></ControlUserIndex>
+
                         :
                         <WalcomModule></WalcomModule>
             }

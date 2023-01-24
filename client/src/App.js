@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Footer from "./modules/footer/Footer";
 import Header from "./modules/header/Header";
 import HomePage from "./pages/HomePage";
-import { BrowserRouter, Routes, Route, json } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { useContext, useEffect, useState } from "react";
@@ -18,9 +18,7 @@ function App() {
   useEffect(()=>{
     chack().then(data => {
       user.setAuth(true)
-      // user.setUser(localStorage.getItem("user"))
-      // console.log(localStorage.getItem("user"))
-      
+      user.setUser(JSON.parse(localStorage.getItem("user")))
     }).finally(()=>{
       setIsLoaded(false)
     })

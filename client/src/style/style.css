@@ -7,7 +7,7 @@
 #root{
     overflow-x: hidden;
     background: rgb(244, 244, 244);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
@@ -47,4 +47,22 @@ footer{
 .cordLogo{
     margin: 0 auto;
     display: block;
+}
+.listUser{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.imgList{
+    max-height: 500px;
+    background-size: cover;
+}
+.listUser img{
+    position: relative;
+    z-index: 2;
+}
+.listUser img:hover{
+    transition: all 0.5s linear ;
+    transform: scale(1.4);
 }
