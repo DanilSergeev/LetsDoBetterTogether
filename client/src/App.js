@@ -9,6 +9,8 @@ import Login from "./pages/Login";
 import { useContext, useEffect, useState } from "react";
 import { Context } from ".";
 import { chack } from "./http/userApi";
+import UserCreateRequestsPage from "./pages/UserCreateRequestsPage";
+import UserUpdataRemoveRequest from "./pages/UserUpdataRemoveRequest";
 
 function App() {
   const {user} = useContext(Context)
@@ -32,6 +34,8 @@ function App() {
         <Route path="/" element={<HomePage isLoaded={isLoaded}/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/user/create" element={<UserCreateRequestsPage/>} />
+        <Route path="/user/update" element={<UserUpdataRemoveRequest/>} />
       </Routes>
       <Footer></Footer>
     </BrowserRouter>

@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { Context } from "..";
 import ControlAdmin from "../modules/controlAdmin/ControlAdmin";
 import ControlUserIndex from "../modules/controlUser/";
+import LastsRequests from "../components/LastsRequests/LastsRequests";
 
 const HomePage = observer((props) => {
     const { user } = useContext(Context)
@@ -24,6 +25,7 @@ const HomePage = observer((props) => {
                         :
                         <WalcomModule></WalcomModule>
             }
+            <LastsRequests></LastsRequests>
 
         </main>
     )

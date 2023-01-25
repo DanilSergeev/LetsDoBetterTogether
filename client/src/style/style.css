@@ -18,6 +18,11 @@ footer{
     margin-top: auto;
     height: 10vh;
     background-color: #000;
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .wrapper{
     margin: 0 auto;
@@ -52,17 +57,84 @@ footer{
     display: flex;
     flex-direction: column;
 }
-
+li{
+    list-style: none;
+}
 
 .imgList{
     max-height: 500px;
     background-size: cover;
+    width: 100%;
+    overflow: hidden;
 }
 .listUser img{
-    position: relative;
-    z-index: 2;
+    width: 100%;
 }
-.listUser img:hover{
-    transition: all 0.5s linear ;
-    transform: scale(1.4);
+.carusel{
+    max-height: 780px;
+    overflow: hidden;
+}
+.carusel div{
+    width: 100%;
+}
+.caruselIMG{
+    background-size: cover;
+    width: 100%;
+}
+.cardCarusel{
+    text-align: center;
+}
+.lastRequest{
+    margin-top: 9vh;
+    margin-bottom: 7vh;
+    flex-direction: column;
+}
+.lastRequest h2{
+    margin-bottom: 6vh;
+    font-size: 36px;
+}
+h2{
+    font-size: 36px;
+}
+.lastRequest ul{
+    display: flex;
+    flex-direction: column;
+    min-height: 30vh;
+    width: 100%;
+    align-items: center;
+}
+.lastRequest ul li{
+    list-style: none;
+    min-height: 30vh;
+    width: 80%;
+    border-radius: 8px;
+    box-shadow: 0px 0px 11px 0px #00000026;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6vh;
+    overflow: hidden;
+}
+.lastRequest ul li div{
+    max-height: 30vh;
+    width: 50%;
+}
+
+.lastRequestImg img{
+    box-shadow: -3px 0px 3px 0px #00000036;
+    background-size: cover;
+    object-fit: cover; 
+    width: 100%;
+    height: 100%;
+}
+.selfCardLastRequest div{
+    display: flex;
+    flex-direction: column;
+}
+.selfCardRequests{
+    padding-bottom: 6vh;
+    width: 80%;
+    margin: 0 auto;
+}
+.toast{
+    position: absolute;
 }

@@ -10,6 +10,7 @@ import logo from "../../style/img/logo_without_wordst.png"
 
 const Header = observer((props) => {
     const { user } = useContext(Context)
+    const userObject = Object.assign({}, user.user)
 
     function exitUser() {
         user.setAuth(!user.isAuth)
@@ -17,7 +18,6 @@ const Header = observer((props) => {
         localStorage.removeItem("token")
         localStorage.removeItem("user")
     }
-
     return (
         <header>
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -31,6 +31,15 @@ const Header = observer((props) => {
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                             <Navbar.Collapse id="responsive-navbar-nav">
                                 <Nav style={{ marginLeft: "auto" }}>
+                                    {
+                                        (userObject.role === "USER" && user.isAuth) ?
+                                            <>
+                                                <Link to="/user/create" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Создать заявку</Link>
+                                                <Link to="/user/update" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Посмотер заявки</Link>
+                                            </>
+                                            :
+                                            <></>
+                                    }
                                     {
                                         user.isAuth ?
                                             <Nav.Link onClick={() => exitUser()}>Выход</Nav.Link>
