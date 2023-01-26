@@ -15,7 +15,7 @@ const Register = observer(() => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rePassword, setRePassword] = useState("");
-    const [isAgree, isSetAgree] = useState(true);
+    const [isAgree, isSetAgree] = useState(false);
 
 
 
@@ -41,6 +41,9 @@ const Register = observer(() => {
             }
             if(name.split(" ").length!==3){
                 return showToast("Некорректно введено ФИО")
+            }
+            if(!email.split("").findIndex("@")){
+                return showToast("Ощибка ввода email")
             }
             if (password !== rePassword) {
                 return showToast("Пароли не совподают")
@@ -73,10 +76,10 @@ const Register = observer(() => {
                         <Form>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label className='mt-2'>Введите ФИО (только на русском)</Form.Label>
-                                <Form.Control value={name} onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z,0-9,.,',-,#,@,%,&,/]/g, ''))} type="text" placeholder="Введите ФИО" />
+                                <Form.Control value={name} onChange={(e) => setName(e.target.value.replace(/[^а-яА-Я,' '/]/g, ''))} type="text" placeholder="Введите ФИО" />
 
                                 <Form.Label className='mt-2'>Введите E-mail</Form.Label>
-                                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="name@example.com" />
+                                <Form.Control value={email} onChange={(e) => setEmail(e.target.value.replace(/[^a-zA-Z,0-9,.,',-,#,@,%,&,/]/g, ''))} type="email" placeholder="name@example.com" />
                                 <Form.Label className='mt-3'>Введите пароль</Form.Label>
                                 <Form.Control value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Ваш пароль" />
                                 <Form.Label className='mt-3'>Повторите пароль</Form.Label>
