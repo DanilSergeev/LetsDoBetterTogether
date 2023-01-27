@@ -1,14 +1,13 @@
-// import { useContext } from 'react';
 import { observer } from "mobx-react"
-// import { Context } from '../..';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import { Context } from "../..";
+import { useContext } from "react";
 
 
 const CreateControl = observer(() => {
-    // const { user } = useContext(Context)
+    const { requests } = useContext(Context)
 
     return (
         <Card style={{ padding: "2vh", width: '38rem' }}>
@@ -26,9 +25,11 @@ const CreateControl = observer(() => {
                         <Form.Label className='mt-3'>Выбирите категорию </Form.Label>
                         <Form.Select defaultValue="default" aria-label="Default select example">
                             <option disabled value="default">Выбирите категорию</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            {
+                                requests.categoryss.map((item)=>
+                                    <option key={item.id} value={item.id}>{item.title}</option>
+                                )
+                            }
                         </Form.Select>
 
                         <Form.Label className='mt-3'>Загрузите фото (обязательно)</Form.Label>
@@ -36,7 +37,7 @@ const CreateControl = observer(() => {
                     </Form.Group>
                 </Form>
 
-                <Button variant="success"><Link to="/login" className='link_a'>Зарегистрироватся</Link></Button>
+                <Button variant="success">Создать</Button>
                 <Card.Body>
                 </Card.Body>
             </Card.Body>

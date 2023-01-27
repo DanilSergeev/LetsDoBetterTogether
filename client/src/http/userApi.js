@@ -33,6 +33,7 @@ export const login = async ( email, password) => {
 
 export const chack = async () => {
     const { data } = await $authHost.get("api/user/auth")
+    
     localStorage.setItem('token', data.token)
     const decode = jwt_decode(data.token)
     const user = {

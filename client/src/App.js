@@ -11,6 +11,8 @@ import { Context } from ".";
 import { chack } from "./http/userApi";
 import UserCreateRequestsPage from "./pages/UserCreateRequestsPage";
 import UserUpdataRemoveRequest from "./pages/UserUpdataRemoveRequest";
+import AdminChangeRequests from "./pages/AdminChangeRequests";
+import AdminControlCategory from "./pages/AdminControlCategory";
 
 function App() {
   const {user} = useContext(Context)
@@ -18,12 +20,12 @@ function App() {
 
 
   useEffect(()=>{
-    chack().then(data => {
-      user.setAuth(true)
-      user.setUser(JSON.parse(localStorage.getItem("user")))
-    }).finally(()=>{
-      setIsLoaded(false)
-    })
+      chack().then(data => {
+        user.setAuth(true)
+        user.setUser(JSON.parse(localStorage.getItem("user")))
+      }).finally(()=>{
+        setIsLoaded(false)
+      })
   },[])
 
 
@@ -36,6 +38,8 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/user/create" element={<UserCreateRequestsPage/>} />
         <Route path="/user/update" element={<UserUpdataRemoveRequest/>} />
+        <Route path="/admin/changeReq" element={<AdminChangeRequests/>} />
+        <Route path="/admin/category" element={<AdminControlCategory/>} />
       </Routes>
       <Footer></Footer>
     </BrowserRouter>

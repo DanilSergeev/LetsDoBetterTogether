@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { observer } from "mobx-react"
 import { useContext } from 'react';
 import { Context } from '../..';
@@ -11,12 +11,14 @@ import logo from "../../style/img/logo_without_wordst.png"
 const Header = observer((props) => {
     const { user } = useContext(Context)
     const userObject = Object.assign({}, user.user)
+    const navigate = useNavigate()
 
     function exitUser() {
         user.setAuth(!user.isAuth)
         user.setUser({})
         localStorage.removeItem("token")
         localStorage.removeItem("user")
+        return navigate("/")
     }
     return (
         <header>
@@ -31,6 +33,16 @@ const Header = observer((props) => {
                             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                             <Navbar.Collapse id="responsive-navbar-nav">
                                 <Nav style={{ marginLeft: "auto" }}>
+                                    {
+                                        (userObject.role === "ADMIN" && user.isAuth) ?
+                                            <>
+                                                <Link to="/admin/changeReq" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Управление заявками</Link>
+                                                <Link to="/admin/category" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Управление категориями</Link>
+
+                                            </>
+                                            :
+                                            <></>
+                                    }
                                     {
                                         (userObject.role === "USER" && user.isAuth) ?
                                             <>

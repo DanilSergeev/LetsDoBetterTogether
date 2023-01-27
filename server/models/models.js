@@ -44,7 +44,7 @@ Request.hasMany(Requests, {as: "RequestsID"})
 //https://habr.com/ru/post/566036/#%D0%B0%D1%81%D1%81%D0%BE%D1%86%D0%B8%D0%B0%D1%86%D0%B8%D0%B8
 
 
-Categorys.hasOne(Request, {onDelete: "cascade", as: "RequestId", foreignKey:"category"})
+// Categorys.hasOne(Request, {onDelete: "cascade", as: "RequestId", foreignKey:"category"})
 Request.belongsTo(Categorys, {as: "Categorys"})
 
 // Status.hasOne(Request, {onDelete: "cascade", as: "RequestId", foreignKey:"status"})

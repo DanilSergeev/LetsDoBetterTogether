@@ -42,9 +42,6 @@ const Register = observer(() => {
             if(name.split(" ").length!==3){
                 return showToast("Некорректно введено ФИО")
             }
-            if(!email.split("").findIndex("@")){
-                return showToast("Ощибка ввода email")
-            }
             if (password !== rePassword) {
                 return showToast("Пароли не совподают")
             }
@@ -60,7 +57,7 @@ const Register = observer(() => {
             user.setUser(response)
             return navigate("/")
         } catch (error) {
-            return showToast("Непредвиденная ошибка")
+            return showToast("пользователь существует")
         }
     }
 
