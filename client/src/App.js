@@ -13,33 +13,42 @@ import UserCreateRequestsPage from "./pages/UserCreateRequestsPage";
 import UserUpdataRemoveRequest from "./pages/UserUpdataRemoveRequest";
 import AdminChangeRequests from "./pages/AdminChangeRequests";
 import AdminControlCategory from "./pages/AdminControlCategory";
+import { getAllCategory } from "./http/requestAPI";
 
 function App() {
-  const {user} = useContext(Context)
+  const { user, requests } = useContext(Context)
   const [isLoaded, setIsLoaded] = useState(true)
 
 
-  useEffect(()=>{
-      chack().then(data => {
-        user.setAuth(true)
-        user.setUser(JSON.parse(localStorage.getItem("user")))
-      }).finally(()=>{
-        setIsLoaded(false)
-      })
-  },[])
 
+  useEffect(() => {
+    chack().then(data => {
+      user.setAuth(true)
+      user.setUser(JSON.parse(localStorage.getItem("user")))
+    }).finally(() => {
+      setIsLoaded(false)
+    })
+  }, [])
+
+  useEffect(() => {
+    getAllCategory().then(data => {
+      requests.setCategory(data.category)
+    })
+  }, [])
+
+  
 
   return (
     <BrowserRouter>
       <Header isLoaded={isLoaded}></Header>
       <Routes>
-        <Route path="/" element={<HomePage isLoaded={isLoaded}/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/user/create" element={<UserCreateRequestsPage/>} />
-        <Route path="/user/update" element={<UserUpdataRemoveRequest/>} />
-        <Route path="/admin/changeReq" element={<AdminChangeRequests/>} />
-        <Route path="/admin/category" element={<AdminControlCategory/>} />
+        <Route path="/" element={<HomePage isLoaded={isLoaded} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/user/create" element={<UserCreateRequestsPage />} />
+        <Route path="/user/update" element={<UserUpdataRemoveRequest />} />
+        <Route path="/admin/changeReq" element={<AdminChangeRequests />} />
+        <Route path="/admin/category" element={<AdminControlCategory />} />
       </Routes>
       <Footer></Footer>
     </BrowserRouter>

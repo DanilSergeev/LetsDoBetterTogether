@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
@@ -15,6 +15,10 @@ const AdminChangeRequests = observer(() => {
         setOpenEditor(prev => !prev)
     }
 
+
+
+
+
     return (
         <main>
             {
@@ -27,7 +31,7 @@ const AdminChangeRequests = observer(() => {
                                 <li key={item.id} className='selfCardRequests'>
                                     <Card >
                                         <Card.Body style={{ width: "100%" }}>
-                                            <Card.Header>Заявка: №{item.id}</Card.Header>
+                                            <Card.Header style={{backgroundColor:"unset"}}>Заявка: №{item.id}</Card.Header>
                                             <Card.Title>Название: {item.title}</Card.Title>
                                             <Card.Subtitle className="mb-2 text-muted">Категория: котики</Card.Subtitle>
                                             <Card.Subtitle className="mb-2 text-muted">Статус: Новая</Card.Subtitle>

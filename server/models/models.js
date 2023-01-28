@@ -45,10 +45,10 @@ Request.hasMany(Requests, {as: "RequestsID"})
 
 
 // Categorys.hasOne(Request, {onDelete: "cascade", as: "RequestId", foreignKey:"category"})
-Request.belongsTo(Categorys, {as: "Categorys"})
+// Request.belongsTo(Categorys, {as: "Categorys"})
 
 // Status.hasOne(Request, {onDelete: "cascade", as: "RequestId", foreignKey:"status"})
-Request.belongsTo(Status, {as: "Status"})
+// Request.belongsTo(Status, {as: "Status"})
 
 
 module.exports = {
@@ -58,7 +58,3 @@ module.exports = {
     Status
 }
 
-
-
-
-// Нужно запросы для Status сделать

@@ -128,6 +128,7 @@ h2{
 .selfCardLastRequest div{
     display: flex;
     flex-direction: column;
+    background-color: unset;
 }
 .selfCardRequests div img{
     box-shadow: 0px 3px 3px 0px #00000036;

@@ -3,30 +3,39 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from "mobx-react"
 import { useContext } from 'react';
 import { Context } from '..';
+import { createCategory } from '../http/requestAPI';
+
 
 
 const AdminControlCategory = observer(() => {
-    const { requests } = useContext(Context)
-    let selectIdForDelit = 0;
+    let { requests } = useContext(Context)
+
 
     const [show, setShow] = useState(false);
     const [textModal, setTextModal] = useState("")
+    const [textCatygory, setTextCatygory] = useState("")
 
 
     const handleClose = () => setShow(false);
     const delitPost = (id, text) => {
         setTextModal(text)
         setShow(true);
-        selectIdForDelit = id
     }
     const delFun =()=>{
         handleClose()
     }
 
+
+    const funCreateCatygory = async () =>{
+        const response = await createCategory(textCatygory)
+        alert(response)
+    }
+
+    
 
     return (
         <main >
@@ -38,10 +47,10 @@ const AdminControlCategory = observer(() => {
                         <Form>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label className='mt-2'>Введите название категории</Form.Label>
-                                <Form.Control type="email" placeholder="Введите название категории" />
+                                <Form.Control value={textCatygory} onChange={e=>setTextCatygory(e.target.value)} type="email" placeholder="Введите название категории" />
                             </Form.Group>
                         </Form>
-                        <Button variant="success">Создать</Button>
+                        <Button onClick={()=>funCreateCatygory()} variant="success">Создать</Button>
                     </Card.Body>
                 </Card>
             </section>
