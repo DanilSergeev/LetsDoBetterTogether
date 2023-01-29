@@ -22,5 +22,23 @@ export const getAllCategory = async () => {
     const { data } = await $host.get("api/category/")
     return data
 }
+export const delitCategory = async (id) => {
+    const { data } = await $authHost.delete("api/category/"+ id)
+    return data
+}
 
+
+
+export const createRequest = async ( getRequest ) => {
+    const { data } = await $authHost.post("api/request/", getRequest)
+    return data
+}
+export const getAllRequest = async () => {
+    const { data } = await $host.get("api/request/")
+    return data
+}
+export const delitRequest = async (id) => {
+    const { data } = await $authHost.delete("api/request/"+ id)
+    return data
+}
 

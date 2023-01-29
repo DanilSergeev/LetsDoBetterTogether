@@ -69,7 +69,7 @@ const Login = observer(() => {
                     </Card.Body>
                 </Card>
             </section>
-            <Toast bg="danger" className='toast' show={showA} onClose={toggleShowA}>
+            <Toast delay={4000} autohide bg="danger" className='toast' show={showA} onClose={toggleShowA}>
                 <Toast.Header>
                     <strong style={{fontSize:"21px"}} className="me-auto">Ошибка</strong>
                 </Toast.Header>

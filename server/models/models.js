@@ -45,10 +45,10 @@ Request.hasMany(Requests, {as: "RequestsID"})
 
 
 // Categorys.hasOne(Request, {onDelete: "cascade", as: "RequestId", foreignKey:"category"})
-// Request.belongsTo(Categorys, {as: "Categorys"})
+Request.belongsTo(Categorys, {onDelete: "cascade", as: "Categorys"})
 
 // Status.hasOne(Request, {onDelete: "cascade", as: "RequestId", foreignKey:"status"})
-// Request.belongsTo(Status, {as: "Status"})
+Request.belongsTo(Status, {onDelete: "cascade", as: "Status"})
 
 
 module.exports = {

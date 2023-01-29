@@ -6,14 +6,14 @@ import HomePage from "./pages/HomePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import { useContext, useEffect, useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 import { Context } from ".";
 import { chack } from "./http/userApi";
 import UserCreateRequestsPage from "./pages/UserCreateRequestsPage";
 import UserUpdataRemoveRequest from "./pages/UserUpdataRemoveRequest";
 import AdminChangeRequests from "./pages/AdminChangeRequests";
 import AdminControlCategory from "./pages/AdminControlCategory";
-import { getAllCategory } from "./http/requestAPI";
+import { getAllCategory, getAllRequest } from "./http/requestAPI";
 
 function App() {
   const { user, requests } = useContext(Context)
@@ -33,6 +33,12 @@ function App() {
   useEffect(() => {
     getAllCategory().then(data => {
       requests.setCategory(data.category)
+    })
+  }, [])
+
+  useEffect(() => {
+    getAllRequest().then(data => {
+      requests.setRequests(data.reque)
     })
   }, [])
 
