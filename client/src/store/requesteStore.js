@@ -18,6 +18,9 @@ export default class RequesteStore {
             // { id: 2, title: "Мусор по всей улице", description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, eos iusto at voluptates adipisci odio autem alias itaque quae excepturi, dolore quos placeat nesciunt iure veniam corporis ad! Accusantium, ab?", file: "testMain.jpg", fileAftar: "test.jpg", createdAt: "2023-01-27 12:28:02.583+03", updatedAt: "2023-01-27 12:28:02.583+03", CategorysId: 3, StatusId: 3 },
             // { id: 3, title: "Еще одна статья", description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, eos iusto at voluptates adipisci odio autem alias itaque quae excepturi, dolore quos placeat nesciunt iure veniam corporis ad! Accusantium, ab?", file: "testMain.jpg", fileAftar: "noimage.jpg", createdAt: "2023-01-27 12:28:02.583+03", updatedAt: "2023-01-27 12:28:02.583+03", CategorysId: 2, StatusId: 3 },
         ]
+        this._oneRequest = [
+
+        ]
         makeAutoObservable(this)
     }
 
@@ -31,6 +34,9 @@ export default class RequesteStore {
     setRequests(requests){
         this._requests = requests
     }
+    setOneRequest(request){
+        this._oneRequest = request
+    }
 
 
     get statuss() {
@@ -41,6 +47,9 @@ export default class RequesteStore {
     }
     get requestss() {
         return this._requests
+    }
+    get oneRequest() {
+        return this._oneRequest
     }
 
 }

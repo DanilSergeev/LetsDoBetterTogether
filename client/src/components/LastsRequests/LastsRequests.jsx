@@ -14,17 +14,17 @@ const LastsRequests = observer(() => {
             <h2>Последние решенные заявки</h2>
             <ul>
                 {
-                    requests.requestss.map((item, index)=>
+                    requests.requestss.slice(0,4).reverse().map((item, index)=>
                     <li key={item.id}>
                             <Card className='selfCardLastRequest' >
                                 <Card.Body style={{width: "100%"}}>
                                     <Card.Header>Заявка: №{item.id}</Card.Header>
                                     <Card.Title>Название: {item.title}</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted">Категория: котики</Card.Subtitle>
+                                    <Card.Subtitle className="mb-2 text-muted">Категория: { item.CategorysId }</Card.Subtitle>
                                     <Card.Text style={{maxWidth: "90%"}}>
                                         Описание: {item.description}
                                     </Card.Text>
-                                    <Card.Text style={{marginTop: "auto", fontWeight:"bold"}}>Решено: {item.updatedAt}</Card.Text>
+                                    <Card.Text style={{marginTop: "auto", fontWeight:"bold"}}>Решено: {item.updatedAt.substr(0,10)}</Card.Text>
                                 </Card.Body>
                             </Card>
 

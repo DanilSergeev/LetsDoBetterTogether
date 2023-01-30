@@ -14,6 +14,7 @@ import UserUpdataRemoveRequest from "./pages/UserUpdataRemoveRequest";
 import AdminChangeRequests from "./pages/AdminChangeRequests";
 import AdminControlCategory from "./pages/AdminControlCategory";
 import { getAllCategory, getAllRequest } from "./http/requestAPI";
+import AdminUpdata from "./pages/AdminUpdata";
 
 function App() {
   const { user, requests } = useContext(Context)
@@ -55,6 +56,7 @@ function App() {
         <Route path="/user/update" element={<UserUpdataRemoveRequest />} />
         <Route path="/admin/changeReq" element={<AdminChangeRequests />} />
         <Route path="/admin/category" element={<AdminControlCategory />} />
+        <Route path="/admin/request/:id" element={<AdminUpdata />} />
       </Routes>
       <Footer></Footer>
     </BrowserRouter>

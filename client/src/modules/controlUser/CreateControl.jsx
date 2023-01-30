@@ -8,6 +8,7 @@ import { useState } from "react";
 import { createRequest } from "../../http/requestAPI";
 import MyToasts from "../../components/toasts/MyToasts";
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
 
 
 const CreateControl = observer(() => {
@@ -19,7 +20,16 @@ const CreateControl = observer(() => {
     const [category, setCategory] = useState(Number)
     const [file, setFile] = useState(null)
     const [textForToasts, setTextForToasts] = useState("Сообщение")
+    const [isWrite, setIsWrite] = useState(true)
 
+
+    useEffect(()=>{
+        if(title && description && category && file){
+            setIsWrite(false)
+        }else{
+            setIsWrite(true)
+        }
+    },[title, description, category, file])
 
     const createRequestsFunction = async () => {
         try {
@@ -35,6 +45,8 @@ const CreateControl = observer(() => {
             formData.append("StatusId", 1)
             formData.append("file", file)
 
+
+            
             const response = await createRequest(formData)
             requests.setRequests([
                 ...requests.requestss,
@@ -91,7 +103,7 @@ const CreateControl = observer(() => {
                     </Form.Group>
                 </Form>
 
-                <Button onClick={() => createRequestsFunction()} variant="success">Создать</Button>
+                <Button disabled={isWrite} onClick={() => createRequestsFunction()} variant="success">Создать</Button>
                 <Card.Body>
                 </Card.Body>
             </Card.Body>

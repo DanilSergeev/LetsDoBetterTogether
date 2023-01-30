@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { Context } from '..';
 import { createCategory, delitCategory } from '../http/requestAPI';
 import MyToasts from '../components/toasts/MyToasts';
+import { useEffect } from 'react';
 
 
 
@@ -21,11 +22,21 @@ const AdminControlCategory = observer(() => {
     const [textCatygory, setTextCatygory] = useState("")
     const [textForToasts, setTextForToasts] = useState("Сообщение")
     const [idTargetForDelit, setIdTargetForDelit] = useState(0);
+    const [bg, setBg] = useState("warning")
+    const [disable, setDisable] = useState( true)
 
     const [showToats, setShowToats] = useState(false);
-    const toggleShow = () =>{
-        setShowToats(prev=>!prev)
+    const toggleShow = () => {
+        setShowToats(prev => !prev)
     }
+
+    useEffect(()=>{
+        if(textCatygory){
+            setDisable(false)
+        }else{
+            setDisable(true)
+        }
+    },[textCatygory])
 
     const handleClose = () => setShow(false);
     const delitPost = (id, text) => {
@@ -33,29 +44,36 @@ const AdminControlCategory = observer(() => {
         setTextModal(text)
         setShow(true);
     }
-    
+
     const delFun = async () => {
         const response = await delitCategory(idTargetForDelit)
-        setShowToats(prev=>!prev)
+        setShowToats(prev => !prev)
         setTextForToasts(response.message)
-        requests.setCategory([...requests.categoryss.filter((item)=> item.id!==idTargetForDelit?item:null)])
+        requests.setCategory([...requests.categoryss.filter((item) => item.id !== idTargetForDelit ? item : null)])
         handleClose()
     }
 
 
     const funCreateCatygory = async () => {
-        const response = await createCategory(textCatygory)
-        requests.setCategory([
-            ...requests.categoryss,
-            {
-                id: response.category.id,
-                title: response.category.title,
-                createdAt: response.category.createdAt,
-                updatedAt: response.category.updatedAt
-            }
-        ])
-        setShowToats(prev=>!prev)
-        setTextForToasts("Категория создана")
+        try {
+            const response = await createCategory(textCatygory)
+            requests.setCategory([
+                ...requests.categoryss,
+                {
+                    id: response.category.id,
+                    title: response.category.title,
+                    createdAt: response.category.createdAt,
+                    updatedAt: response.category.updatedAt
+                }
+            ])
+            setShowToats(prev => !prev)
+            setBg("warning")
+            setTextForToasts("Категория создана")
+        } catch (error) {
+            setBg("danger")
+            setShowToats(prev => !prev)
+            setTextForToasts(`Ошибка : ${error.message}`)
+        }
     }
 
 
@@ -73,7 +91,7 @@ const AdminControlCategory = observer(() => {
                                 <Form.Control value={textCatygory} onChange={e => setTextCatygory(e.target.value)} type="email" placeholder="Введите название категории" />
                             </Form.Group>
                         </Form>
-                        <Button onClick={() => funCreateCatygory()} variant="success">Создать</Button>
+                        <Button disabled={disable} onClick={() => funCreateCatygory()} variant="success">Создать</Button>
                     </Card.Body>
                 </Card>
             </section>
@@ -92,7 +110,7 @@ const AdminControlCategory = observer(() => {
                             </thead>
                             <tbody>
                                 {
-                                    requests.categoryss.map((item,index) =>
+                                    requests.categoryss.map((item, index) =>
                                         <tr key={item.id}>
                                             <td>{index + 1}</td>
                                             <td>Название: {item.title}</td>
@@ -119,7 +137,7 @@ const AdminControlCategory = observer(() => {
                 </Modal.Footer>
             </Modal>
 
-            <MyToasts showToats={showToats} toggleShow={toggleShow} text={textForToasts} bg="warning"></MyToasts>
+            <MyToasts showToats={showToats} toggleShow={toggleShow} text={textForToasts} bg={bg}></MyToasts>
         </main>
     )
 })

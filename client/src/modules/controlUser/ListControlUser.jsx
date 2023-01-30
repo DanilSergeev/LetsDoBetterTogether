@@ -23,7 +23,6 @@ const ListControlUser = observer(() => {
         setShowToats(prev=>!prev)
     }
 
-    const category = [...requests.categoryss]
 
 
     const delitPost = (id) => {
@@ -54,7 +53,7 @@ const ListControlUser = observer(() => {
                                     <Card.Text style={{ maxWidth: "90%" }}>
                                         Описание: {item.description}
                                     </Card.Text>
-                                    <Card.Text style={{ marginTop: "auto", fontWeight: "bold" }}>Создано: {item.createdAt}</Card.Text>
+                                    <Card.Text style={{ marginTop: "auto", fontWeight: "bold" }}>Создано: {item.createdAt.substr(0,10)}</Card.Text>
                                     <Button onClick={() => delitPost(item.id)} variant="success" style={{ width: "200px" }}>Удалить заявку</Button>
                                 </Card.Body>
                             </Card>
@@ -63,7 +62,7 @@ const ListControlUser = observer(() => {
                                 <img src={process.env.REACT_APP_BASE_URL + item.file} alt={item.title} />
                             </div>
                         </li>
-                    )
+                    ).reverse()
                 }
 
             </ul>

@@ -16,7 +16,7 @@ class requestController {
             if (!title || !description || !CategorysId || !StatusId) {
                 return next(ApiError.badRequest("Не все поля введины"))
             }
-
+            
             const reque = await Request.create({ title, description, CategorysId, StatusId, file: fileName })
 
 
@@ -70,7 +70,6 @@ class requestController {
             let fileName = uuid.v4() + ".jpg"
             fileAftar.mv(path.resolve(__dirname, "..", "static", fileName))
         
-            console.log(await Request.update({ CategorysId:CategorysId, StatusId:StatusId, fileAftar: fileName }, { where: { id: id } }));
             await Request.update({ CategorysId:CategorysId, StatusId:StatusId, fileAftar: fileName }, { where: { id: id } })
             return res.json({ message: "Поля обновлены" })
         } catch (e) {

@@ -37,6 +37,10 @@ export const getAllRequest = async () => {
     const { data } = await $host.get("api/request/")
     return data
 }
+export const getOneRequest = async (id) => {
+    const { data } = await $host.get("api/request/" + id)
+    return data
+}
 export const delitRequest = async (id) => {
     const { data } = await $authHost.delete("api/request/"+ id)
     return data
