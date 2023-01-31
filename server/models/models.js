@@ -16,7 +16,7 @@ const Users = sequelize.define('users', {
 const Request = sequelize.define('request', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING, allowNull: false },
-    description: { type: DataTypes.STRING, allowNull: false },
+    description: { type: DataTypes.TEXT('long'), allowNull: false },
     file: { type: DataTypes.STRING, allowNull: false, defaultValue: "noimage.jpg" },
     fileAftar: { type: DataTypes.STRING,  defaultValue: "noimage.jpg" },
 })

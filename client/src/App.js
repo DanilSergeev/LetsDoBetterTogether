@@ -13,7 +13,7 @@ import UserCreateRequestsPage from "./pages/UserCreateRequestsPage";
 import UserUpdataRemoveRequest from "./pages/UserUpdataRemoveRequest";
 import AdminChangeRequests from "./pages/AdminChangeRequests";
 import AdminControlCategory from "./pages/AdminControlCategory";
-import { getAllCategory, getAllRequest } from "./http/requestAPI";
+import { getAllCategory, getAllRequest, getAllStatus } from "./http/requestAPI";
 import AdminUpdata from "./pages/AdminUpdata";
 
 function App() {
@@ -40,6 +40,12 @@ function App() {
   useEffect(() => {
     getAllRequest().then(data => {
       requests.setRequests(data.reque)
+    })
+  }, [])
+
+  useEffect(() => {
+    getAllStatus().then(data => {
+      requests.setStatus(data.status)
     })
   }, [])
 

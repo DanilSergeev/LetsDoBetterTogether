@@ -4,9 +4,9 @@ import { makeAutoObservable } from "mobx"
 export default class RequesteStore {
     constructor() {
         this._status = [
-            { id: 1, titleStatus: "Новая" },
-            { id: 2, titleStatus: "Отклонено" },
-            { id: 3, titleStatus: "Выполнино" },
+            // { id: 1, titleStatus: "Новая" },
+            // { id: 2, titleStatus: "Отклонено" },
+            // { id: 3, titleStatus: "Выполнино" },
         ]
         this._category = [
             // { id: 1, title: "Котики" },

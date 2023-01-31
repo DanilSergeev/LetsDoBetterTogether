@@ -7,31 +7,96 @@ import { getOneRequest } from '../http/requestAPI';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import { Form } from 'react-bootstrap';
 
 
 
 const AdminUpdata = observer(() => {
     const { requests } = useContext(Context)
     const navigate = useNavigate()
-    const {id} = useParams()
+    const { id } = useParams()
     const [isLoaded, setIsLoaded] = useState(false)
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const [file, setFile] = useState(null)
+    const [selectStatus, setSelectStatus] = useState(0)
+    const [showFileUploader, setShowFileUploader] = useState(false)
+    const [isWrite, setIsWrite] = useState("")
 
 
-    useEffect(()  => {
+    useEffect(() => {
+        if (selectStatus && selectStatus !== "3") {
+            return setIsWrite(false)
+        } else {
+            setIsWrite(true)
+        }
+        if (selectStatus && file && selectStatus === "3") {
+            setIsWrite(false)
+        } else {
+            setIsWrite(true)
+        }
+    }, [selectStatus, file])
+
+    useEffect(() => {
+        if (selectStatus === "3") {
+            setShowFileUploader(true)
+        } else {
+            setShowFileUploader(false)
+        }
+    }, [selectStatus])
+
+
+    useEffect(() => {
         try {
             getOneRequest(id).then(data => requests.setOneRequest(data))
 
-            setTimeout(()=>setIsLoaded(true),10)
-            
-            
+            setTimeout(() => setIsLoaded(true), 1000)
+
+
         } catch (error) {
             setIsLoaded(false)
+            return navigate("/admin/changeReq")
         }
     }, [])
 
     const backToList = () => {
         return navigate("/admin/changeReq")
     }
+
+
+    const updataRequestFunction = async () => {
+        try {
+
+            const formData = new FormData()
+            formData.append("StatusId", 1)
+            formData.append("file", file)
+
+            // const response = await createRequest(formData)
+
+
+            // requests.setRequests([
+            //     ...requests.requestss,
+            //     {
+            //         id: response.reque.id,
+            //         title: response.reque.title,
+            //         description: response.reque.description,
+            //         StatusId: response.reque.StatusId,
+            //         CategorysId: response.reque.CategorysId,
+            //         file: response.reque.file,
+            //         fileAftar: response.reque.fileAftar,
+            //         createdAt: response.reque.createdAt,
+            //         updatedAt: response.reque.updatedAt
+            //     }
+            // ])
+
+        } catch (error) {
+        }
+    }
+
+
+
+
 
     return (
         <main>
@@ -52,14 +117,17 @@ const AdminUpdata = observer(() => {
                                     <Card >
                                         <Card.Body style={{ width: "100%" }}>
                                             <Card.Header style={{ backgroundColor: "unset" }}>Заявка: {requests.oneRequest.reque.title}</Card.Header>
-                                            <Card.Subtitle style={{marginTop: "1vh"}} className="mb-2 text-muted">Категория: {requests.oneRequest.reque.CategorysId}</Card.Subtitle>
+                                            <Card.Subtitle style={{ marginTop: "1vh" }} className="mb-2 text-muted">Категория: {requests.oneRequest.reque.CategorysId}</Card.Subtitle>
                                             <Card.Subtitle className="mb-2 text-muted">Статус: {requests.oneRequest.reque.StatusId}</Card.Subtitle>
                                             <Card.Text style={{ maxWidth: "90%" }}>
                                                 Описание: {requests.oneRequest.reque.description}
                                             </Card.Text>
-                                            <Card.Text style={{ marginTop: "auto", fontWeight: "bold" }}>Создано: {requests.oneRequest.reque.createdAt}</Card.Text>
-                                            <Card.Text style={{ marginTop: "auto", fontWeight: "bold" }}>Обновлено: {requests.oneRequest.reque.updatedAt}</Card.Text>
-                                            <Button variant="success">Редактировать</Button>
+                                            <div style={{ marginTop: "auto", display: "flex", justifyContent:"center",  flexDirection: "column-reverse" }}>
+                                                <Card.Text>Создано: {requests.oneRequest.reque.createdAt}</Card.Text>
+                                                <Card.Text >Обновлено: {requests.oneRequest.reque.updatedAt}</Card.Text>
+
+                                            </div>
+                                            <Button variant="success" onClick={() => setShow(prev => !prev)}>Обновить</Button>
                                         </Card.Body>
                                     </Card>
 
@@ -73,8 +141,42 @@ const AdminUpdata = observer(() => {
 
                     </>
                     :
-                    <h2>Пользователь не найден</h2>
+                    <div class="spinner-border wrapper center" style={{ width: "20vh", height: "20vh", display: "block" }} role="status">
+                    </div>
             }
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Редактирование</Modal.Title>
+                </Modal.Header>
+                <Form style={{ margin: "0 2vh" }}>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label className='mt-2'>Выберите статус заявки:</Form.Label>
+                        <Form.Select value={selectStatus} onChange={e => setSelectStatus(e.target.value)} aria-label="Default select example">
+
+                            <option selected disabled value="0">Выбирите статус</option>
+                            {
+                                requests.statuss.map((item) =>
+                                    <option key={item.id} value={item.id}>{item.titleStatus}</option>
+                                )
+                            }
+                        </Form.Select>
+                        {
+                            showFileUploader ?
+                                <>
+                                    <Form.Label className='mt-3'>Загрузите фото завершенной работы (обязательно)</Form.Label>
+                                    <Form.Control onChange={(e) => setFile(e.target.files[0])} type='file' />
+                                </>
+                                :
+                                null
+                        }
+                    </Form.Group>
+                </Form>
+                <Modal.Footer>
+                    <Button disabled={isWrite} variant="success" onClick={() => updataRequestFunction()}>
+                        Подтверждаю
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
         </main>
     )

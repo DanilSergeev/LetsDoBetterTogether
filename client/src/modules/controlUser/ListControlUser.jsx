@@ -42,6 +42,7 @@ const ListControlUser = observer(() => {
         <section className='wrapper mt-5'>
             <ul>
                 {
+                    requests.requestss.length?
                     requests.requestss.map((item) =>
                         <li key={item.id} className='selfCardRequests'>
                             <Card >
@@ -63,6 +64,8 @@ const ListControlUser = observer(() => {
                             </div>
                         </li>
                     ).reverse()
+                    :
+                    <h2>Нету заявок</h2>
                 }
 
             </ul>
