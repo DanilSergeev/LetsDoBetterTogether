@@ -52,7 +52,7 @@ const Register = observer(() => {
                 return showToast("Недопустимая длина пароля")
             }
     
-            const response = await registration(name, email, password);
+            const response = await registration(name.trim(), email.trim(), password.trim());
             user.setAuth(true)
             user.setUser(response)
             return navigate("/")

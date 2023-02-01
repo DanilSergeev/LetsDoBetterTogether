@@ -18,34 +18,34 @@ const Request = sequelize.define('request', {
     title: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.TEXT('long'), allowNull: false },
     file: { type: DataTypes.STRING, allowNull: false, defaultValue: "noimage.jpg" },
-    fileAftar: { type: DataTypes.STRING,  defaultValue: "noimage.jpg" },
+    fileAftar: { type: DataTypes.STRING, defaultValue: "noimage.jpg" },
 })
 const Categorys = sequelize.define('categorys', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING, unique: true, allowNull: false }
 })
 
-const Status = sequelize.define('status', {//new
+const Status = sequelize.define('status', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     titleStatus: { type: DataTypes.STRING, unique: true, allowNull: false }
 })
+const User_request = sequelize.define('user_request',{
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+},{
+    timestamps:false,
+})
 
+Users.belongsToMany(Request, { through: User_request })
+Request.belongsToMany(Users, { through: User_request })
 
-Users.belongsToMany(Request, {through: "Requests_" })
-Request.belongsToMany(Users, {through: "Requests_" })
-// Users.hasMany(Requests, {as:"RequestsID"})
-// Requests.belongsTo(Users)
-
-// Request.hasMany(Requests, {as: "RequestsID"})
-// Requests.belongsTo(Request)
 
 
 //https://habr.com/ru/post/566036/#%D0%B0%D1%81%D1%81%D0%BE%D1%86%D0%B8%D0%B0%D1%86%D0%B8%D0%B8
 
 
-Request.belongsTo(Categorys, {onDelete: "cascade", as: "Categorys"})
+Request.belongsTo(Categorys, { onDelete: "cascade", as: "Categorys" })
 
-Request.belongsTo(Status, {onDelete: "cascade", as: "Status"})
+Request.belongsTo(Status, { onDelete: "cascade", as: "Status" })
 
 
 module.exports = {

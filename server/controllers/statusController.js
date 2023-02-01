@@ -18,7 +18,6 @@ class statusController {
     async getAllCategorys(req, res, next) {
         try {
             const status =  await Status.findAll()
-            console.log(123)
             return res.json({status})
         } catch (e) {
             next(ApiError.badRequest(e.messge))
