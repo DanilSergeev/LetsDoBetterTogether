@@ -67,35 +67,22 @@ const AdminUpdata = observer(() => {
 
     const updataRequestFunction = async () => {
         try {
-
-            const formData = new FormData()
-            formData.append("StatusId", 1)
-            formData.append("file", file)
-
-            // const response = await createRequest(formData)
-
-
-            // requests.setRequests([
-            //     ...requests.requestss,
-            //     {
-            //         id: response.reque.id,
-            //         title: response.reque.title,
-            //         description: response.reque.description,
-            //         StatusId: response.reque.StatusId,
-            //         CategorysId: response.reque.CategorysId,
-            //         file: response.reque.file,
-            //         fileAftar: response.reque.fileAftar,
-            //         createdAt: response.reque.createdAt,
-            //         updatedAt: response.reque.updatedAt
-            //     }
-            // ])
-
+            
         } catch (error) {
         }
     }
 
 
-
+    const thisCatygory = (CategorysId) =>{
+        let answer = ""
+        requests.categoryss.filter(item=> CategorysId === item.id? answer = item.title  : null )
+        return answer
+    }
+    const thisStatus = (idStatus) =>{
+        let answer = ""
+        requests.statuss.filter(item=> idStatus === item.id? answer = item.titleStatus  : null )
+        return answer
+    }
 
 
     return (
@@ -117,8 +104,8 @@ const AdminUpdata = observer(() => {
                                     <Card >
                                         <Card.Body style={{ width: "100%" }}>
                                             <Card.Header style={{ backgroundColor: "unset" }}>Заявка: {requests.oneRequest.reque.title}</Card.Header>
-                                            <Card.Subtitle style={{ marginTop: "1vh" }} className="mb-2 text-muted">Категория: {requests.oneRequest.reque.CategorysId}</Card.Subtitle>
-                                            <Card.Subtitle className="mb-2 text-muted">Статус: {requests.oneRequest.reque.StatusId}</Card.Subtitle>
+                                            <Card.Subtitle style={{ marginTop: "1vh" }} className="mb-2 text-muted">Категория: {thisCatygory(requests.oneRequest.reque.CategorysId)}</Card.Subtitle>
+                                            <Card.Subtitle className="mb-2 text-muted">Статус: {thisStatus(requests.oneRequest.reque.StatusId)}</Card.Subtitle>
                                             <Card.Text style={{ maxWidth: "90%" }}>
                                                 Описание: {requests.oneRequest.reque.description}
                                             </Card.Text>

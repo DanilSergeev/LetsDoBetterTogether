@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap'
 import Modal from 'react-bootstrap/Modal';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Context } from '../..';
 import { observer } from "mobx-react"
 import { delitRequest } from '../../http/requestAPI';
@@ -17,11 +17,15 @@ const ListControlUser = observer(() => {
     const [targetId, setTargetId] = useState(0)
     const handleClose = () => setShow(false);
     const [textForToasts, setTextForToasts] = useState("Сообщение")
+    const [userId, setUserId ] = useState(Number)
 
     const [showToats, setShowToats] = useState(false);
     const toggleShow = () =>{
         setShowToats(prev=>!prev)
     }
+    useEffect(()=>{
+        setUserId(JSON.parse(localStorage.getItem("user")).id)
+    }, [])
 
 
 
@@ -36,21 +40,32 @@ const ListControlUser = observer(() => {
         requests.setRequests([...requests.requestss.filter((item)=> item.id!==targetId?item:null)])
         handleClose()
     }
-    
-    
+
+    const thisCatygory = (CategorysId) =>{
+        let answer = ""
+        requests.categoryss.filter(item=> CategorysId === item.id? answer = item.title  : null )
+        return answer
+    }
+    const thisStatus = (idStatus) =>{
+        let answer = ""
+        requests.statuss.filter(item=> idStatus === item.id? answer = item.titleStatus  : null )
+        return answer
+    }
+
+
     return (
         <section className='wrapper mt-5'>
             <ul>
                 {
                     requests.requestss.length?
-                    requests.requestss.map((item) =>
+                    requests.requestss.filter(item=>userId===item.userId?item:null).map((item) =>
                         <li key={item.id} className='selfCardRequests'>
                             <Card >
                                 <Card.Body style={{ width: "100%" }}>
                                     <Card.Header style={{ backgroundColor: "unset" }}>Заявка: №{item.id}</Card.Header>
                                     <Card.Title>Название: {item.title}</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted">Категория: { item.CategorysId }</Card.Subtitle>
-                                    <Card.Subtitle className="mb-2 text-muted">Статус: {item.StatusId}</Card.Subtitle>
+                                    <Card.Subtitle className="mb-2 text-muted">Категория: { thisCatygory(item.CategorysId) }</Card.Subtitle>
+                                    <Card.Subtitle className="mb-2 text-muted">Статус: {thisStatus(item.StatusId)}</Card.Subtitle>
                                     <Card.Text style={{ maxWidth: "90%" }}>
                                         Описание: {item.description}
                                     </Card.Text>
@@ -65,7 +80,7 @@ const ListControlUser = observer(() => {
                         </li>
                     ).reverse()
                     :
-                    <h2>Нету заявок</h2>
+                    <h2 style={{textAlign: "center"}}>Нет заявок</h2>
                 }
 
             </ul>

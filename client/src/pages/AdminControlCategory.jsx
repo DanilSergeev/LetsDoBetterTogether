@@ -62,8 +62,6 @@ const AdminControlCategory = observer(() => {
                 {
                     id: response.category.id,
                     title: response.category.title,
-                    createdAt: response.category.createdAt,
-                    updatedAt: response.category.updatedAt
                 }
             ])
             setShowToats(prev => !prev)

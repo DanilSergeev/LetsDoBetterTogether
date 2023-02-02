@@ -6,21 +6,33 @@ import { useState } from 'react';
 
 const LastsRequests = observer(() => {
     const { requests } = useContext(Context)
-
     const [isBeforImg, setIsBeforImg] = useState(true)
+
+    const thisCatygory = (CategorysId) =>{
+        let answer = ""
+        requests.categoryss.filter(item=> CategorysId === item.id? answer = item.title  : null )
+        return answer
+    }
+    const thisStatus = (idStatus) =>{
+        let answer = ""
+        requests.statuss.filter(item=> idStatus === item.id? answer = item.titleStatus  : null )
+        return answer
+    }
+
 
     return (
         <section className='wrapper center lastRequest'>
             <h2>Последние решенные заявки</h2>
             <ul>
                 {
-                    requests.requestss.slice(0,4).reverse().map((item, index)=>
+
+                    requests.requestss.filter(item=>item.StatusId===3).map((item)=>
                     <li key={item.id}>
                             <Card className='selfCardLastRequest' >
                                 <Card.Body style={{width: "100%"}}>
                                     <Card.Header>Заявка: №{item.id}</Card.Header>
                                     <Card.Title>Название: {item.title}</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted">Категория: { item.CategorysId }</Card.Subtitle>
+                                    <Card.Subtitle className="mb-2 text-muted">Категория: { thisCatygory(item.CategorysId) }</Card.Subtitle>
                                     <Card.Text style={{maxWidth: "90%"}}>
                                         Описание: {item.description}
                                     </Card.Text>
@@ -39,7 +51,7 @@ const LastsRequests = observer(() => {
                         </div>
                     </li>
                     
-                    )
+                    ).reverse().slice(0,4)
                 }
 
             </ul>

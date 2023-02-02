@@ -18,10 +18,14 @@ const CreateControl = observer(() => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState(Number)
+    const [userId, setUserId ] = useState(Number)
     const [file, setFile] = useState(null)
     const [textForToasts, setTextForToasts] = useState("Сообщение")
     const [isWrite, setIsWrite] = useState(true)
 
+    useEffect(()=>{
+        setUserId(JSON.parse(localStorage.getItem("user")).id)
+    }, [])
 
     useEffect(()=>{
         if(title && description && category && file){
@@ -43,6 +47,7 @@ const CreateControl = observer(() => {
             formData.append("description", description)
             formData.append("CategorysId", category)
             formData.append("StatusId", 1)
+            formData.append("userId", userId)
             formData.append("file", file)
 
 
@@ -56,6 +61,7 @@ const CreateControl = observer(() => {
                     description: response.reque.description,
                     StatusId: response.reque.StatusId,
                     CategorysId: response.reque.CategorysId,
+                    userId: response.reque.userId,
                     file: response.reque.file,
                     fileAftar: response.reque.fileAftar,
                     createdAt: response.reque.createdAt,

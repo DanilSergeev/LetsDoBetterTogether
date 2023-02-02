@@ -6,18 +6,18 @@ const ApiError = require("../error/ApiError")
 class requestController {
     async createRequest(req, res, next) {
         try {
-            let { title, description, CategorysId, StatusId } = req.body
+            let { title, description, CategorysId, StatusId, userId } = req.body
             let { file } = req.files
             if (!file) {
                 return next(ApiError.badRequest("Изображение не передано"))
             }
             let fileName = uuid.v4() + ".jpg"
             file.mv(path.resolve(__dirname, "..", "static", fileName))
-            if (!title || !description || !CategorysId || !StatusId) {
+            if (!title || !description || !CategorysId || !StatusId || !userId) {
                 return next(ApiError.badRequest("Не все поля введины"))
             }
             
-            const reque = await Request.create({ title, description, CategorysId, StatusId, file: fileName })
+            const reque = await Request.create({ title, description, CategorysId, StatusId, file: fileName, userId })
 
 
             return res.json({ reque })
