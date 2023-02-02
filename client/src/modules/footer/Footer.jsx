@@ -15,7 +15,7 @@ const Footer = observer(() => {
 
     useEffect(() => {
         setCounter(funCounter())
-    }, [requests.requestss])
+    }, [requests.requestss.length])
 
     return (
         <footer>

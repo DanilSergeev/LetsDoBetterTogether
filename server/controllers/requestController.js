@@ -58,19 +58,24 @@ class requestController {
             if (!id) {
                 return next(ApiError.badRequest("id не передан"))
             }
-            let { CategorysId, StatusId } = req.body
-            if(!CategorysId || !StatusId){
+            let {  StatusId } = req.body
+            if(!StatusId ){
                 return next(ApiError.badRequest("Не все поля переданы"))
             }
-
-            let { fileAftar } = req.files
-            if (!fileAftar) {
-                return next(ApiError.badRequest("Изображение не передано"))
+            
+            if(req.files){
+                var { fileAftar } = req.files
             }
-            let fileName = uuid.v4() + ".jpg"
-            fileAftar.mv(path.resolve(__dirname, "..", "static", fileName))
-        
-            await Request.update({ CategorysId:CategorysId, StatusId:StatusId, fileAftar: fileName }, { where: { id: id } })
+            if(!fileAftar){
+                await Request.update({ StatusId:StatusId }, { where: { id: id } })
+            }else{
+                let fileName = uuid.v4() + ".jpg"
+                fileAftar.mv(path.resolve(__dirname, "..", "static", fileName))
+                await Request.update({ StatusId:StatusId, fileAftar: fileName }, { where: { id: id } })
+            }
+            // if (!fileAftar) {
+            //     return next(ApiError.badRequest("Изображение не передано"))
+            // }
             return res.json({ message: "Поля обновлены" })
         } catch (e) {
             next(ApiError.badRequest(e))

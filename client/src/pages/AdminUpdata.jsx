@@ -3,12 +3,13 @@ import { observer } from "mobx-react"
 import { useContext, useEffect } from 'react';
 import { Context } from '..';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getOneRequest } from '../http/requestAPI';
+import { getOneRequest, updataRequest } from '../http/requestAPI';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import { Form } from 'react-bootstrap';
+import MyToasts from '../components/toasts/MyToasts';
 
 
 
@@ -23,6 +24,16 @@ const AdminUpdata = observer(() => {
     const [selectStatus, setSelectStatus] = useState(0)
     const [showFileUploader, setShowFileUploader] = useState(false)
     const [isWrite, setIsWrite] = useState("")
+    const [showToats, setShowToats] = useState(false);
+    const [textForToasts, setTextForToasts] = useState("Сообщение")
+    const [bgToasts, setBgToasts] = useState("warning")
+    const [isBeforImg, setIsBeforImg] = useState(true)
+
+
+    const toggleShow = () => {
+        setShowToats(prev => !prev)
+    }
+
 
 
     useEffect(() => {
@@ -65,22 +76,57 @@ const AdminUpdata = observer(() => {
     }
 
 
+
+
+
+
     const updataRequestFunction = async () => {
         try {
-            
+            if (!selectStatus) {
+                setShowToats(prev => !prev)
+                setBgToasts("danger")
+                return setTextForToasts(`Ошибка: Не все поля заполнены`)
+            }
+            if (selectStatus && file && selectStatus === "3") {
+                
+                
+                const formData = new FormData()
+                formData.append("StatusId", selectStatus)
+                formData.append("fileAftar", file)
+                 await updataRequest( requests.oneRequest.reque.id ,formData)
+
+                setBgToasts("success")
+                setTextForToasts("Обновлено")
+                setShowToats(prev => !prev)
+                setShow(false)
+
+            } else {
+                const formData = new FormData()
+                formData.append("StatusId", selectStatus)
+                await updataRequest( requests.oneRequest.reque.id ,formData)
+
+
+                setShow(false)
+                setBgToasts("success")
+                setTextForToasts("Обновлено")
+                setShowToats(prev => !prev)
+            }
         } catch (error) {
+            setBgToasts("danger")
+            setTextForToasts("Ошибка: " + error.message)
+            setShowToats(prev => !prev)
         }
     }
 
 
-    const thisCatygory = (CategorysId) =>{
+    const thisCatygory = (CategorysId) => {
         let answer = ""
-        requests.categoryss.filter(item=> CategorysId === item.id? answer = item.title  : null )
+        requests.categoryss.filter(item => CategorysId === item.id ? answer = item.title : null)
         return answer
     }
-    const thisStatus = (idStatus) =>{
+    const thisStatus = (idStatus) => {
         let answer = ""
-        requests.statuss.filter(item=> idStatus === item.id? answer = item.titleStatus  : null )
+        requests.statuss.filter(item => idStatus === item.id ? answer = item.titleStatus : null)
         return answer
     }
 
@@ -109,9 +155,9 @@ const AdminUpdata = observer(() => {
                                             <Card.Text style={{ maxWidth: "90%" }}>
                                                 Описание: {requests.oneRequest.reque.description}
                                             </Card.Text>
-                                            <div style={{ marginTop: "auto", display: "flex", justifyContent:"center",  flexDirection: "column-reverse" }}>
-                                                <Card.Text>Создано: {requests.oneRequest.reque.createdAt}</Card.Text>
-                                                <Card.Text >Обновлено: {requests.oneRequest.reque.updatedAt}</Card.Text>
+                                            <div style={{ marginTop: "auto", display: "flex", justifyContent: "center", flexDirection: "column-reverse" }}>
+                                                <Card.Text>Создано: {requests.oneRequest.reque.createdAt.substr(0, 10)}</Card.Text>
+                                                <Card.Text >Обновлено: {requests.oneRequest.reque.updatedAt.substr(0, 10)}</Card.Text>
 
                                             </div>
                                             <Button variant="success" onClick={() => setShow(prev => !prev)}>Обновить</Button>
@@ -119,7 +165,12 @@ const AdminUpdata = observer(() => {
                                     </Card>
 
                                     <div className="lastRequestImg">
-                                        <img src={process.env.REACT_APP_BASE_URL + requests.oneRequest.reque.file} alt="" />
+                                        {
+                                            isBeforImg && (selectStatus !== "3")?
+                                            <img onMouseOver={()=>setIsBeforImg(prev=>!prev)} src={process.env.REACT_APP_BASE_URL + requests.oneRequest.reque.file} alt={requests.oneRequest.reque.file} />
+                                            :
+                                            <img onMouseOut={()=>setIsBeforImg(prev=>!prev)} src={process.env.REACT_APP_BASE_URL + requests.oneRequest.reque.fileAftar} alt={requests.oneRequest.reque.fileAftar} />
+                                        }
                                     </div>
                                 </li>
 
@@ -164,7 +215,7 @@ const AdminUpdata = observer(() => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
+            <MyToasts showToats={showToats} toggleShow={toggleShow} text={textForToasts} bg={bgToasts}></MyToasts>
         </main>
     )
 })

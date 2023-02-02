@@ -39,6 +39,10 @@ export const createRequest = async ( getRequest ) => {
     const { data } = await $authHost.post("api/request/", getRequest)
     return data
 }
+export const updataRequest = async ( id, getRequest ) => {
+    const { data } = await $authHost.put("api/request/" + id, getRequest)
+    return data
+}
 export const getAllRequest = async () => {
     const { data } = await $host.get("api/request/")
     return data

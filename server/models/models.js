@@ -9,10 +9,6 @@ const Users = sequelize.define('users', {
     role: { type: DataTypes.STRING, defaultValue: "USER" },
 },{timestamps:false})
 
-// const Requests = sequelize.define('requests', {
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-// })
-
 const Request = sequelize.define('request', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     title: { type: DataTypes.STRING, allowNull: false },
@@ -30,18 +26,6 @@ const Status = sequelize.define('status', {
     titleStatus: { type: DataTypes.STRING, unique: true, allowNull: false }
 },{timestamps:false})
 
-// const User_request = sequelize.define('user_request',{
-//     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-// },{
-//     timestamps:false,
-// })
-
-// Users.belongsToMany(Request, { through: User_request })
-// Request.belongsToMany(Users, { through: User_request })
-
-
-
-//https://habr.com/ru/post/566036/#%D0%B0%D1%81%D1%81%D0%BE%D1%86%D0%B8%D0%B0%D1%86%D0%B8%D0%B8
 
 Users.hasMany(Request)
 Request.belongsTo(Users, { onDelete: "cascade", as: "user" })
