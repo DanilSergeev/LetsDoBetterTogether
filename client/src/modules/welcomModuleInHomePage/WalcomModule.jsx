@@ -9,9 +9,9 @@ export default function WalcomModule() {
         <section className='center carusel'>
             <HomePageCarusel></HomePageCarusel>
 
-            <Card  style={{ position:"absolute", width: '38rem'}}>
+            <Card className='cardCarusel'>
                 <Card.Body style={{ padding: "5vh" }}>
-                    <Card.Title className='cardCarusel'>Добро пожаловать</Card.Title>
+                    <Card.Title style={{textAlign:"center"}}>Добро пожаловать</Card.Title>
                     <Card.Text >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam ipsam beatae eligendi dolorem. Amet ut ipsum aliquam nulla.
                     </Card.Text>

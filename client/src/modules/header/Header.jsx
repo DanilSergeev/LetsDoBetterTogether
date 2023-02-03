@@ -36,8 +36,8 @@ const Header = observer((props) => {
                                     {
                                         (userObject.role === "ADMIN" && user.isAuth) ?
                                             <>
-                                                <Link to="/admin/changeReq" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Управление заявками</Link>
-                                                <Link to="/admin/category" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Управление категориями</Link>
+                                                <Link to="/admin/changeReq" className='link_a linkNav' >Управление заявками</Link>
+                                                <Link to="/admin/category" className='link_a linkNav' >Управление категориями</Link>
 
                                             </>
                                             :
@@ -46,8 +46,8 @@ const Header = observer((props) => {
                                     {
                                         (userObject.role === "USER" && user.isAuth) ?
                                             <>
-                                                <Link to="/user/create" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Создать заявку</Link>
-                                                <Link to="/user/update" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Посмотер заявки</Link>
+                                                <Link to="/user/create" className='link_a linkNav' >Создать заявку</Link>
+                                                <Link to="/user/update" className='link_a linkNav' >Посмотер заявки</Link>
                                             </>
                                             :
                                             <></>
@@ -57,7 +57,7 @@ const Header = observer((props) => {
                                             <Nav.Link onClick={() => exitUser()}>Выход</Nav.Link>
                                             :
                                             <>
-                                                <Link to="/login" className='link_a linkNav' style={{ marginRight: "1.4rem" }}>Авторизация</Link>
+                                                <Link to="/login" className='link_a linkNav' >Авторизация</Link>
                                                 <Link to="/register" className='link_a linkNav'>Регистрация</Link>
                                             </>
                                     }

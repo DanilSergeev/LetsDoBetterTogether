@@ -1,5 +1,5 @@
-import "./style/style.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./style/style.css"
 import Footer from "./modules/footer/Footer";
 import Header from "./modules/header/Header";
 import HomePage from "./pages/HomePage";

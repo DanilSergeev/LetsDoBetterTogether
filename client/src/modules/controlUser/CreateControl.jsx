@@ -50,7 +50,7 @@ const CreateControl = observer(() => {
             formData.append("userId", userId)
             formData.append("file", file)
 
-
+            
             
             const response = await createRequest(formData)
             requests.setRequests([
@@ -71,7 +71,7 @@ const CreateControl = observer(() => {
             return navigate("/")
 
         } catch (error) {
-            setTextForToasts("Ощибка: " + error.message)
+            setTextForToasts("Ошибка: " + error.message)
             setShowToats(prev => !prev)
         }
     }
@@ -82,7 +82,7 @@ const CreateControl = observer(() => {
     }
 
     return (
-        <Card style={{ padding: "2vh", width: '38rem' }}>
+        <Card className="cardCarusel minWCreate " >
             <Card.Body>
                 <Card.Img style={{ width: '9rem' }} />
                 <Card.Title style={{ textAlign: "center", fontSize: "26px" }}>Форма создания заявки</Card.Title>

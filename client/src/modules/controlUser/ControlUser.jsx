@@ -14,7 +14,7 @@ const ControlUser = observer(() => {
         <section className='center carusel'>
             <HomePageCarusel></HomePageCarusel>
 
-            <Card className='cardCarusel' style={{ position: "absolute", maxWidth: '44vh' }}>
+            <Card className='cardCarusel'>
                 <Card.Body style={{ padding: "6vh" }}>
                     <Card.Title>Добро пожаловать {userObject.name}</Card.Title>
                     <Card.Text >Напишите или проверте свои заявки</Card.Text>

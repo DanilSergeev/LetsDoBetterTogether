@@ -5,7 +5,7 @@ import three from "../../style/img/three.jpg"
 
 export default function HomePageCarusel (){
     return(
-        <Carousel indicators={false} variant="dark" slide={true}>
+        <Carousel  indicators={false} variant="dark" slide={true}>
                 <Carousel.Item interval={4000}>
                     <img
                         className=" w-100 caruselIMG"

@@ -48,8 +48,8 @@ const Login = observer(() => {
 
     return (
         <main className='center'>
-            <section className='wrapper center'>
-                <Card style={{ padding: "2vh", width: '38rem' }}>
+            <section className='wrapper center auth'>
+                <Card >
                     <Card.Body>
                         <Card.Img style={{ width: '9rem' }} className="cordLogo" src={logo} />
                         <Card.Title style={{ textAlign: "center", fontSize: "26px" }}>Форма авторизации</Card.Title>
