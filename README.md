@@ -1,2 +1,1 @@
-# LetsDoBetterTogether
-https://vk.com/doc151099089_653229532?hash=VZal2TFvv1iqSVHJ4eisjh8usj3qEvcJWMU6YMRFiSP&dl=zpePk3p1UHxtKtmsk4ef19WjpYn05g4YS4tcAVDPqNX
+
