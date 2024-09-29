@@ -11,9 +11,9 @@ export default function WalcomModule() {
 
             <Card className='cardCarusel'>
                 <Card.Body style={{ padding: "5vh" }}>
-                    <Card.Title style={{textAlign:"center"}}>Добро пожаловать</Card.Title>
+                    <Card.Title style={{ textAlign: "center" }}>Добро пожаловать</Card.Title>
                     <Card.Text >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam ipsam beatae eligendi dolorem. Amet ut ipsum aliquam nulla.
+                        На нашем сайте вы можете оставлять сообщения о проблемах, с которыми столкнулись в нашем городе. Давайте начнём? Пожалуйста, войдите в свою учётную запись!
                     </Card.Text>
                     <Link to="/login" className='link_a'><Button variant="success" style={{ marginRight: "1rem" }}>Авторизация</Button></Link>
                     <Link to="/register" className='link_a'><Button variant="success">Регистрация</Button></Link>

@@ -171,6 +171,7 @@ h2{
     min-width: 38rem;
 }
 .minWCreate{
+    position: relative;
     min-width: 700px;
 }
 @media screen and (max-width: 400px) {
